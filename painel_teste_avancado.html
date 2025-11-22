@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Rede Social – Acesso Seguro</title>
+
+<style>
+    body {
+        margin: 0;
+        background: linear-gradient(135deg, #3b4b8a, #1a1d2e);
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .card {
+        background: #fff;
+        width: 380px;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.25);
+        text-align: center;
+        animation: fadeIn .8s ease;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 26px;
+    }
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 12px;
+        border-radius: 8px;
+        border: 1px solid #bbb;
+        font-size: 16px;
+    }
+    button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: #3947f0;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 17px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover {
+        background: #2b37c4;
+    }
+    .alerta {
+        margin-top: 18px;
+        color: #d9534f;
+        font-size: 13px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Acesso à Rede Social</h2>
+
+    <form onsubmit="processar(event)">
+        <input type="text" id="usuario" placeholder="Seu usuário" required>
+        <input type="password" id="senha" placeholder="Sua senha" required minlength="5">
+
+        <button type="submit">Entrar</button>
+    </form>
+
+    <div class="alerta">
+        *Página de teste de segurança — não use dados reais.
+    </div>
+</div>
+
+<script>
+function processar(e) {
+    e.preventDefault();
+
+    let usuario = document.getElementById("usuario").value;
+    let senha = document.getElementById("senha").value;
+
+    alert("Dados capturados somente LOCALMENTE:\nUsuário: " + usuario + "\nSenha: " + senha);
+
+    let dados = "Usuário: " + usuario + " | Senha: " + senha + " | Horário: " + new Date().toLocaleString();
+
+    baixarArquivo("log_teste.txt", dados + "\n");
+
+    document.getElementById("usuario").value = "";
+    document.getElementById("senha").value = "";
+}
+
+function baixarArquivo(nome, conteudo) {
+    let a = document.createElement("a");
+    let arquivo = new Blob([conteudo], {type: "text/plain"});
+    a.href = URL.createObjectURL(arquivo);
+    a.download = nome;
+    a.click();
+}
+</script>
+
+</body>
+</html>
